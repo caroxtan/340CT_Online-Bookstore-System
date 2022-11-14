@@ -112,10 +112,10 @@
                 $state = mysqli_real_escape_string($combine, $state);
                 $zip = mysqli_real_escape_string($combine, $zip);
                 $cardname = mysqli_real_escape_string($combine, $cardname);
-                $cardnumber = mysqli_real_escape_string($combine, $cardnumber);
-                $expmonth = mysqli_real_escape_string($combine, $expmonth);
-                $expyear = mysqli_real_escape_string($combine, $expyear);
-                $cvv = mysqli_real_escape_string($combine, $cvv);
+                $cardnumber = mysqli_real_escape_string($combine, base64_encode($cardnumber));
+                $expmonth = mysqli_real_escape_string($combine, base64_encode($expmonth));
+                $expyear = mysqli_real_escape_string($combine, base64_encode($expyear));
+                $cvv = mysqli_real_escape_string($combine, base64_encode($cvv));
 
                 //Check for empty full namfield
                 if (empty($fullname)) {
@@ -318,21 +318,7 @@
 
                 }
 
-                //Check if CVV has digits only
-                else if (!is_numeric($cvv)) {
-
-                        //Print error message in script
-                        echo "<script>alert('CVV should be in digits only!')</script>";
-
-                }
-
-                //Check for the length of digits in CVV
-                else if (strlen($cvv) != 3) {
-
-                        //Print error message in script
-                        echo "<script>alert('Card number should be 16 digits!')</script>";
-
-                }
+                
                 else 
                 {
                         //Success store data and display message
@@ -480,7 +466,7 @@
 
                 //Prompt user to enter CVV
                 echo "<label for='cvv'>CVV</label>";
-                echo "<br /><input type='text' id='cvv' name='cvv' placeholder='XXX' size='120'>";
+                echo "<br /><input type='number' id='cvv' name='cvv' placeholder='XXX' size='120'>";
 
                 echo"</br>";
 
